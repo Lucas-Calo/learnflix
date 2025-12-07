@@ -7,28 +7,43 @@ Funcionalidades Principais
 👨‍🏫 Painel do Professor:
 
 • Gestão de Atividades: Criar, editar e excluir atividades.
+
 • Monitoramento: Visualizar a lista de todos os alunos e o status de entrega de cada um.
+
 • Avaliação:
+
     • Visualizar ou baixar os arquivos PDF entregues pelos alunos.
+
     • Atribuir notas (0-10) e fornecer feedback detalhado.
+
     • Identificar rapidamente quem entregou, quem está pendente e quem já foi avaliado.
 
 👨‍🎓 Painel do Aluno:
 
 • Visualização: Acesso à lista de atividades pendentes e concluídas.
+
 • Entrega de Trabalhos:
+
    • Upload de arquivos exclusivamente em formato .PDF.
+
    • Validação de tamanho de arquivo (limite de 20MB).
+
    • Possibilidade de editar/reenviar uma entrega enquanto o prazo permitir.
+
 • Feedback: Visualização da nota e dos comentários do professor após a correção.
 
 🛠️ Tecnologias Utilizadas:
 
 • Frontend: React.js
+
 • Roteamento: React Router Dom
+
 • Estilização: CSS3 (Metodologia Mobile-First e Responsiva)
+
 • Gestão de Estado: Context API (AuthContext, AtividadeContext)
+
 • Gestão de Gestos: React Swipeable (para navegação mobile)
+
 • Ícones: SVG Inline / Lucide React
 
 Como Rodar o Projeto:
@@ -67,6 +82,7 @@ O layout foi construído pensando primeiramente em dispositivos móveis (Mobile-
 Notas de Desenvolvimento:
 
 • Upload de PDF: Atualmente, o fluxo de upload simula o envio criando URLs de objeto (URL.createObjectURL) para permitir a visualização imediata sem um backend real configurado neste momento.
+
 • Autenticação: O sistema utiliza um AuthContext para simular o login de perfis diferentes (Professor/Aluno) para fins de teste e desenvolvimento.
 
 👤 Autor
