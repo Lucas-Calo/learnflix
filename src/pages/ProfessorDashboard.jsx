@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAtividades } from '../contexts/AtividadeContext';
+import { getAllUsers } from '../services/userService'; // <--- IMPORTANTE
 import DashboardLayout from '../components/DashboardLayout';
 import CitacaoDoDia from '../components/CitacaoDoDia';
 import CardAtividade from '../components/CardAtividade';
@@ -10,6 +11,33 @@ const ProfessorDashboard = () => {
   const { atividades } = useAtividades();
   const [citacao, setCitacao] = useState(null);
   const [loadingCitacao, setLoadingCitacao] = useState(true);
+
+  // LÓGICA DE STATUS
+  const getStatusGeral = (atividade) => {
+    // Pega total de alunos
+    const alunos = getAllUsers().filter(u => u.profile === 'Aluno');
+    const totalAlunos = alunos.length;
+
+    if (totalAlunos === 0) return { label: 'Sem Alunos', class: 'pendente' };
+
+    // Conta correções
+    let entregasFinalizadas = 0;
+    alunos.forEach(aluno => {
+      const entrega = atividade.entregas?.[aluno.id];
+      if (entrega && (entrega.status === 'Aprovado' || entrega.status === 'Reprovado')) {
+        entregasFinalizadas++;
+      }
+    });
+
+    // Define Status
+    if (entregasFinalizadas === totalAlunos) {
+      return { label: 'CORRIGIDO', class: 'aprovado' };
+    } else if (entregasFinalizadas > 0) {
+      return { label: 'EM CORREÇÃO', class: 'aguardando-avaliação' };
+    } else {
+      return { label: 'PENDENTE', class: 'pendente' };
+    }
+  };
 
   useEffect(() => {
     const fetchCitacao = async () => {
@@ -47,13 +75,19 @@ const ProfessorDashboard = () => {
         {atividades.length === 0 ? (
           <p>Você ainda não criou nenhuma atividade.</p>
         ) : (
-          atividades.map(atividade => (
-            <CardAtividade 
-              key={atividade.id} 
-              atividade={atividade} 
-              perfil="professor"
-            />
-          ))
+          atividades.map(atividade => {
+            // Calcula o status aqui e passa para o componente filho
+            const statusInfo = getStatusGeral(atividade);
+
+            return (
+              <CardAtividade 
+                key={atividade.id} 
+                atividade={atividade} 
+                perfil="professor"
+                statusCalculado={statusInfo} 
+              />
+            );
+          })
         )}
       </div>
     </DashboardLayout>

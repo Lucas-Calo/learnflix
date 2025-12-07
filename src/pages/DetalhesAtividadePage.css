@@ -1,9 +1,23 @@
+/* LAYOUT GERAL */
 .detalhes-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 1rem; 
+  padding: 1rem;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: #333;
 }
 
+/* Animação */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* HEADER E BOTÕES DE NAVEGAÇÃO */
 .btn-voltar {
   background: none;
   border: none;
@@ -12,16 +26,20 @@
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
 }
+.btn-voltar:hover { color: var(--purple-dark); }
 
 .detalhes-header {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+  margin-bottom: 1.5rem;
   border-bottom: 2px solid var(--gray-light);
   padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
 }
 
 .detalhes-header h1 {
@@ -31,108 +49,170 @@
   word-break: break-word;
 }
 
-.status-detalhes {
+/* BADGES DE STATUS */
+.status-top {
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: bold;
-  color: var(--white);
   text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.5px;
+  display: inline-block;
 }
+.status-top.pendente { background-color: var(--orange-accent); }
+.status-top.aguardando-avaliação { background-color: var(--blue-info); }
+.status-top.aprovado { background-color: var(--green-success); }
+.status-top.reprovado { background-color: var(--red-danger); }
+.status-top.professor { background-color: #333; }
+.status-top.sm { font-size: 0.75rem; padding: 2px 8px; }
 
-.status-detalhes.pendente { background-color: var(--orange-accent); }
-.status-detalhes.aguardando-avaliação { background-color: #1E88E5; }
-.status-detalhes.aprovado { background-color: #43A047; }
-.status-detalhes.reprovado { background-color: #D32F2F; }
-.status-detalhes.professor {
-  background-color: var(--purple-primary);
-}
-
+/* CARDS DE CONTEÚDO */
 .detalhes-card {
-  background: var(--white);
+  background: white;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   margin-bottom: 1.5rem;
+  border: 1px solid #eee;
 }
 
 .detalhes-card h2 {
   margin-top: 0;
-  color: var(--purple-primary);
   font-size: 1.2rem;
+  color: var(--purple-primary);
   border-bottom: 1px solid var(--gray-light);
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.datas-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-.detalhes-card.avaliacao {
-  background-color: #f7f3fa;
-}
-
-.detalhes-card.acoes {
-  background-color: #f7f3fa;
-  border: 1px dashed var(--purple-primary);
-}
-
-.detalhes-card.acoes h2 {
-  border: none;
-  padding: 0;
+.card-header-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
 }
+.card-header-acoes h2 { margin: 0; border: none; padding: 0; }
 
-.acao-info {
-  font-style: italic;
-  color: #666;
-  margin: 0;
-}
-
-/* Estilos dos Botões de Ação */
-.btn-acao {
-  width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
+.btn-link-action {
+  background: none;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  color: #0275d8;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* ÁREA DE UPLOAD (ALUNO) */
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #0275d8;
+  background-color: #f8fbff;
+  border-radius: 8px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+
+.upload-area:hover { background-color: #eaf4ff; }
+
+.upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.upload-hint { color: #999; }
+.input-file-hidden { display: none; }
+
+.error-msg {
+  color: var(--red-danger);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.file-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e9ecef;
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.file-name { font-weight: 600; color: #333; word-break: break-all; }
+.file-size { color: #666; font-size: 0.8rem; white-space: nowrap; margin-left: 5px;}
+
+.btn-remove-file {
+  background: none;
+  border: none;
+  color: #999;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+}
+.btn-remove-file:hover { color: var(--red-danger); }
+
+/* BOTÕES DE AÇÃO (GERAIS) */
+.form-actions {
+  display: flex;
+  flex-direction: column; 
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-acao {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
   text-align: center;
   text-decoration: none;
   display: block;
 }
+.btn-acao:hover { opacity: 0.9; }
+.btn-acao:disabled { background-color: #ccc; cursor: not-allowed; }
 
-.btn-entregar { background-color: var(--purple-primary); color: var(--white); }
-.btn-entregar:hover { background-color: var(--purple-dark); }
+.btn-entregar { background-color: var(--purple-primary); color: white; }
+.btn-cancelar { background-color: #f8f9fa; color: #333; border: 1px solid #ddd; }
+.btn-delete { background-color: var(--red-danger); color: white; }
+.btn-edit { background-color: #1976D2; color: white; }
 
-.btn-avaliar { background-color: #43A047; color: var(--white); }
-.btn-avaliar:hover { background-color: #2E7D32; }
-
-.btn-edit { background-color: var(--orange-accent); color: var(--white); }
-.btn-edit:hover { background-color: var(--orange-light); }
-
-.btn-delete { background-color: #D32F2F; color: var(--white); }
-.btn-delete:hover { background-color: #B71C1C; }
-
-.status-corrigido {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 0.5rem;
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: #43A047;
+/* ESTADOS DE ENTREGA */
+.entrega-realizada-info {
   background-color: #EDF7ED;
-  border-radius: 4px;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #c8e6c9;
 }
+.success-text { color: #2E7D32; margin: 0; }
 
+.btn-ver-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: #2E7D32;
+  font-weight: bold;
+  text-decoration: none;
+}
+.btn-ver-pdf:hover { text-decoration: underline; }
+
+/* ÁREA DO PROFESSOR (LISTA E DOWNLOADS) */
 .lista-entregas-professor {
   display: flex;
   flex-direction: column;
@@ -141,116 +221,160 @@
 
 .entrega-aluno-card {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 0.5rem;
+  flex-direction: column; 
+  gap: 1rem;
+  background-color: #fdfdfd;
   padding: 1rem;
+  border: 1px solid #eee;
   border-radius: 6px;
-  background-color: #f9f9f9;
-  border: 1px solid var(--gray-light);
 }
 
-.info-aluno {
+.info-aluno-col {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.aluno-nome-status {
+  display: flex;
   align-items: center;
-  font-size: 1.1rem;
+  gap: 10px;
 }
 
-.status-entrega {
-  padding: 0.2rem 0.6rem;
-  border-radius: 10px;
+/* Wrapper do arquivo no card do professor */
+.file-wrapper-prof {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 8px;
+  background-color: #fafafa;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.file-name-display {
+  display: block;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.arquivo-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Botões de Ação de PDF (Ver e Baixar) */
+.btn-pdf-action {
   font-size: 0.8rem;
-  font-weight: bold;
-  color: var(--white);
-  text-transform: uppercase;
-  margin-left: 0.75rem;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  flex: 1;
 }
 
-.status-entrega.pendente { background-color: var(--orange-accent); }
-.status-entrega.aguardando-avaliação { background-color: #1E88E5; }
-.status-entrega.aprovado { background-color: #43A047; }
-.status-entrega.reprovado { background-color: #D32F2F; }
+.btn-pdf-action.view {
+  background-color: #fff;
+  color: #333;
+  border-color: #ced4da;
+}
+.btn-pdf-action.view:hover { background-color: #dee2e6; }
 
+.btn-pdf-action.download {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  border-color: #bbdefb;
+}
+.btn-pdf-action.download:hover { background-color: #bbdefb; }
+
+.no-file-msg, .no-link-msg { font-size: 0.8rem; color: #999; font-style: italic; }
+
+/* Ações Gerais do Professor (Avaliar, Deletar Atividade) */
 .acoes-professor {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; 
   align-items: center;
+  gap: 0.5rem;
 }
 
-.btn-acao-prof {
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
+.btn-avaliar { 
+  background-color: var(--green-success); 
+  color: white;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
-  color: white;
   cursor: pointer;
-}
-
-.btn-avaliar-sm {
-  background-color: #43A047;
-}
-
-.feedback-info {
-  font-size: 0.9rem;
   font-weight: bold;
-  color: #333;
 }
 
-.professor-geral {
-  margin-top: 1.5rem; 
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--gray-light);
+.nota-display { font-weight: bold; color: #333; }
+.acoes-gerais-prof { display: flex; flex-direction: column; gap: 10px; margin-top: 1rem; }
+
+.datas-grid {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-/*  Estilos para Telas Maiores (Desktop) */
+/* RESPONSIVIDADE (DESKTOP) */
 @media (min-width: 769px) {
-  .detalhes-container {
-    padding: 2rem; 
-  }
+  .detalhes-container { padding: 2rem; }
 
   .detalhes-header {
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2rem;
+    justify-content: space-between;
   }
+  .status-top { align-self: auto; }
 
-  .detalhes-header h1 {
-    font-size: 1.8rem;
-  }
+  .detalhes-header h1 { font-size: 1.8rem; }
 
-  .datas-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  .datas-grid { grid-template-columns: 1fr 1fr; }
+
+  .form-actions { flex-direction: row; }
   
-  .acoes-botoes-container {
-    display: flex;
-    gap: 0.5rem;
+  .acoes-gerais-prof {
+    flex-direction: row;
+    justify-content: flex-end;
   }
 
-  .acoes-botoes-container .btn-acao {
-    flex: 1; 
-    width: auto; 
-    margin-bottom: 0;
-  }
-  
-  .detalhes-card.acoes > .btn-acao {
-     width: 100%;
-  }
+  .btn-acao { width: auto; flex: 1; max-width: 200px; }
 
-    .entrega-aluno-card {
+  .entrega-aluno-card {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
-
-  .info-aluno {
-    flex-wrap: nowrap;
-    flex-grow: 1;
+  
+  .file-wrapper-prof {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+    background: none;
+    padding: 0;
   }
 
+  .file-name-display { margin-bottom: 0; margin-right: 10px; max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .arquivo-actions { width: auto; }
+  .btn-pdf-action { flex: initial; }
+
   .acoes-professor {
-    flex-shrink: 0;
+    justify-content: flex-end;
+    margin-top: 0;
   }
 }

@@ -22,13 +22,12 @@ export const AtividadeProvider = ({ children }) => {
     carregarDoLocalStorage('atividades', [])
   );
 
-  // Gravação Automática (sem alterações)
-  // Salva no localStorage sempre que o estado 'atividades' mudar
+  // Gravação Automática
   useEffect(() => {
     localStorage.setItem('atividades', JSON.stringify(atividades));
   }, [atividades]);
 
-  //Funções do Professor
+  // Funções do Professor
 
   const addAtividade = (atividade) => {
     setAtividades(prevAtividades => [
@@ -49,14 +48,14 @@ export const AtividadeProvider = ({ children }) => {
     );
   };
 
-  //Funções de Entrega
+  //  Funções de Entrega
 
-  /**
-   * Função para um aluno entregar uma atividade
-   * @param {number} atividadeId - O ID da atividade
-   * @param {number | string} alunoId - O ID do aluno que está a entregar
-   */
-  const entregarAtividade = (atividadeId, alunoId) => {
+  const entregarAtividade = (atividadeId, alunoId, arquivo) => {
+    // Cria uma URL temporária para o arquivo (Blob URL)
+    // Obs: Como não temos backend real, usei createObjectURL para simular o link.
+    const urlTemporaria = arquivo ? URL.createObjectURL(arquivo) : null;
+    const nomeDoArquivo = arquivo ? arquivo.name : '';
+
     setAtividades(prevAtividades =>
       prevAtividades.map(atividade => {
         if (atividade.id === atividadeId) {
@@ -65,7 +64,9 @@ export const AtividadeProvider = ({ children }) => {
             status: 'Aguardando Avaliação',
             dataEntregaAluno: new Date().toISOString(),
             nota: null,
-            feedback: null
+            feedback: null,
+            arquivoUrl: urlTemporaria, 
+            fileName: nomeDoArquivo
           };
         
           const novasEntregas = { ...atividade.entregas, [alunoId]: novaEntrega };
@@ -76,13 +77,7 @@ export const AtividadeProvider = ({ children }) => {
     );
   };
 
-  /**
-   * Função para um professor avaliar uma entrega específica
-   * @param {number} atividadeId - O ID da atividade
-   * @param {number | string} alunoId - O ID do aluno a ser avaliado
-   * @param {number} nota - A nota atribuída
-   * @param {string} feedback - O feedback do professor
-   */
+  /* Função para um professor avaliar uma entrega específica */
   const avaliarEntrega = (atividadeId, alunoId, nota, feedback) => {
     const notaNum = parseFloat(nota);
     const statusFinal = notaNum >= 6 ? 'Aprovado' : 'Reprovado';

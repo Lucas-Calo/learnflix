@@ -7,7 +7,11 @@
   --text-primary: #333;     
   --white: #FFFFFF;
   --gray-light: #E0E0E0;   
+  --blue-info: #1E88E5;
+  --green-success: #43A047;
+  --red-danger: #D32F2F;
 }
+
 
 *,
 *::before,
@@ -18,7 +22,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: calc(1em + 0.5rem); 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
