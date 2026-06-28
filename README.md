@@ -59,7 +59,7 @@ Certifique-se de ter o Node.js (versão 14 ou superior) e o npm instalados em su
 Clone o repositório e instale as dependências:
 
 # Clone este repositório
-git clone [https://github.com/Lucas-Calo/meu-projeto-de-bloco.git](https://github.com/Lucas-Calo/meu-projeto-de-bloco.git)
+git clone [https://github.com/Lucas-Calo/meu-projeto-de-bloco.git](https://github.com/Lucas-Calo/learnflix.git)
 
 # Acesse a pasta do projeto
 cd meu-projeto-de-bloco
